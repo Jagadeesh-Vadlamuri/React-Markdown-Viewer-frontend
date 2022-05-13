@@ -1,25 +1,49 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {createContext, useState} from "react";
+import { Routes, Route } from "react-router-dom";
+import Cards from "./Components/Cards";
+import Card from "./Components/Card";
+import CreateCard from './Components/CreateCard';
+import EditCard from './Components/EditCard';
+import HomePage from './Components/HomePage';
+import {useFormik} from 'formik';
+import Navbar from './Components/Navbar';
+import Popup from './Components/Popup';
+import './Components/Popup.css';
+import ReactMarkdown from 'react-markdown';
 
-function App() {
+export const store = createContext()
+const App = () => {
+  const [cone, setCone] = useState({
+    title:"",
+    description: "",
+    markdown: ""
+  })
+  const formik = useFormik({
+    initialValues: {
+      title: "",
+      description: "",
+      markdown: "",
+      _id:""
+    }
+  })
+  // const [details, setDetails] = useState({
+  //   title:"",
+  //   description: "",
+  //   markdown: ""
+  // })
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <store.Provider value= {[cone, setCone]}>
+      <Navbar />
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/getTask/:id" element={<Card formik={formik}/>} />
+        <Route path="/getTasks" element={<Cards />} />
+        <Route path="/createTask" element={<CreateCard />} />
+        <Route path="/updateTask/:id" element={<EditCard formik={formik}/>} />
+      </Routes>
+    </store.Provider>
   );
-}
+};
 
 export default App;

@@ -11,3 +11,25 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+body{
+  background-color: rgb(245, 251, 251)
+}
+
+.card{
+  background-color: rgb(193, 231, 193);
+}
+
+.container{
+  position: sticky;
+  margin-top:100px;
+  z-index: 0;
+}
+
+.navbar{
+  position: fixed;
+  top: 0;
+  right: 0;
+  left:0;
+  z-index: 1;
+}
